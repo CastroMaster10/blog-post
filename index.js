@@ -25,8 +25,22 @@ app.listen(4000, (req,res) => {
 })
 
 
-app.get('/', (req,res) =>{
-  res.render('index')
+app.get('/', async (req,res) =>{
+    console.log('el modelo de blogpost ha sido guardado en el homepage');
+    const blogposts = await BlogPost.find({})
+    res.render('index', {
+        blogposts
+    })
+})
+
+
+
+app.get('/post/:id', async (req,res) => {
+    const blogpost = await BlogPost.findById(req.params.id)
+        console.log(blogpost)
+        res.render('post', {
+            blogpost
+        })
 })
 
 app.get('/posts/new', (req,res) => {
