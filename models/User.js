@@ -1,11 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-    username: String,
-    password: String
-})
+const bcrypt = require('bcrypt')
 
-const User = mongoose.model('User', UserSchema);
+const UserSchema = new Schema({  
+  username: { // pass in config object. and put in validation rules 
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    } // mongoose will check that record should be unique before saving to db. can do exact same thing to username    
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
+  
+UserSchema.pre('save', function(next){
+    let user = this      
+    bcrypt.hash(user.password, 10,  (error, hash) => {        
+      user.password = hash 
+      next() 
+    }); 
+});
 
-module.exports = User;
+const User = mongoose.model('User',UserSchema);
+module.exports = User
+  

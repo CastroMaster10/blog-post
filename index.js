@@ -12,6 +12,10 @@ const storePostController = require('./controllers/storePost');
 const newPostController = require('./controllers/newPost');
 const getRegisterController = require('./controllers/getRegister');
 const storeRegisterController = require('./controllers/storeRegister');
+const getLoginController = require('./controllers/getLogin');
+const storeLoginController = require('./controllers/logUser');
+
+
 
 const db = mongoose.connection
 mongoose.connect('mongodb://localhost/miBaseDeDatos', {useNewUrlParser: true, useUnifiedTopology:true})  // conecta la base de datos y nuestra aplicación
@@ -39,6 +43,10 @@ app.get('/posts/new', getPostController);
 app.post('/posts/store', storePostController);
 app.get('/auth/register', getRegisterController);
 app.post('/user/register', storeRegisterController);
+app.get('/login', getLoginController);
+app.post('/store/login', storeLoginController);
+
+
 
 // app.get('/', async (req,res) =>{
 //     console.log('el modelo de blogpost ha sido guardado en el homepage');

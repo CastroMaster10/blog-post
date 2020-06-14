@@ -1,6 +1,12 @@
-const User = require('../models/User');
+const User = require('../models/User')
+const path = require('path')
 
-module.exports = async (req,res) =>{
-    await User.create(req.body)
-    res.redirect('/')
+module.exports =  (req,res)=>{ 
+   User.create(req.body, (error,user) =>{
+       if(error){
+           return res.redirect('/auth/register')
+       } else{
+           return res.redirect('/')
+       }
+   })
 }
