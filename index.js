@@ -17,7 +17,7 @@ const storeLoginController = require('./controllers/logUser');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
 const logOutController = require('./controllers/logOut');
-
+const flash = require('connect-flash');
 
 global.loggedIn = null  // global var for conditioning navbar lists
 
@@ -26,6 +26,7 @@ global.loggedIn = null  // global var for conditioning navbar lists
 
 const logMiddleWare = require('./middlewares/logMiddleWare')  
 const ifLoggedinMiddleware = require('./middlewares/ifLoggedinMiddleWare');
+app.use(flash())
 
 
 const db = mongoose.connection
@@ -51,6 +52,7 @@ app.use("*", (req,res,next) =>{
     loggedIn = req.session.userId
     next()
 })
+
 
 
 

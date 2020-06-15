@@ -1,19 +1,20 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-
 const bcrypt = require('bcrypt')
+const uniqueValidator = require('mongoose-unique-validator');
+const { tree } = require('gulp');
 
 const UserSchema = new Schema({  
   username: { // pass in config object. and put in validation rules 
     type: String,
-    required: true,
+    required: [true, 'Por favor introduce un usuario'],
     index: {
-      unique: true
+      unique: [true, 'Ya existe un usuario con ese nombre']
     } // mongoose will check that record should be unique before saving to db. can do exact same thing to username    
   },
   password: {
     type: String,
-    required: true
+    required: [true, 'Por favor introduce una contraseña']
   }
 });
   
@@ -24,6 +25,8 @@ UserSchema.pre('save', function(next){
       next() 
     }); 
 });
+
+UserSchema.plugin(uniqueValidator);
 
 const User = mongoose.model('User',UserSchema);
 module.exports = User

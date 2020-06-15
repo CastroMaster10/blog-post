@@ -12,12 +12,14 @@ module.exports = (req, res) =>{
             res.redirect('/')
           }
           else{
+
+
             res.redirect('/login')  
           }
         })
       }
       else{
-        res.redirect('/w    login')
+        res.redirect('/login')
       }
     })
 }
