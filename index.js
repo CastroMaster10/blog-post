@@ -30,7 +30,7 @@ app.use(flash())
 
 
 const db = mongoose.connection
-mongoose.connect('mongodb://localhost/miBaseDeDatos', {useNewUrlParser: true, useUnifiedTopology:true})  // conecta la base de datos y nuestra aplicación
+mongoose.connect('mongodb+srv://CastroMaster10:rodrigo02@cluster0-tynid.mongodb.net/miBaseDeDatos', {useNewUrlParser: true, useUnifiedTopology:true})  // conecta la base de datos y nuestra aplicación
 db.on('error', (error) => console.log('Hubo un error en el servidor!',error)) 
 db.once('open', () => console.log('Servidor lanzado con éxito!')) // mensaje una vez que servidor haya sido lanzado
 
@@ -53,12 +53,13 @@ app.use("*", (req,res,next) =>{
     next()
 })
 
+let port = process.env.PORT;
+if(port === null || port === ""){
+    port = 4000;
+}
 
 
-
-
-
-app.listen(3000, (req,res) => {
+app.listen(port, (req,res) => {
     console.log('Server has started')  // se inicializa servidor
 })
 
