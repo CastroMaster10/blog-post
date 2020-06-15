@@ -12,6 +12,8 @@ module.exports = (req, res) =>{
             res.redirect('/')
           }
           else{
+            const validationErrors = Object.keys(error.errors).map(key => error.errors[i].message)
+            res.flash('validationErrors', validationErrors)
             res.redirect('/login')  
           }
         })
