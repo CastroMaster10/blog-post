@@ -1,7 +1,9 @@
 module.exports = (req,res) =>{
     if(req.session.userId){
-        res.render('create')
+        return res.render('create', {
+            createPost: true
+        })
     } else{
-        res.redirect('/login')
+       return res.redirect('/login')
     }
 }
