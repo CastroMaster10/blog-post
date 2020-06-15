@@ -50,12 +50,9 @@ app.use("*", (req,res,next) =>{
     next()
 })
 
-let port = process.env.PORT
-if(port == null || port == ""){
-    port = 4000;
-}
 
-app.listen(port, (req, res) => {
+
+app.listen(4000, (req, res) => {
   console.log("Server has started"); // se inicializa servidor
 });
 

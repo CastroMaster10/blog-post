@@ -20,9 +20,6 @@
         "email": "feedback@startbootstrap.com"
     },
     "license": "MIT",
-    "engines": {
-        "node": "12.16.1"
-    },
     "author": "Start Bootstrap",
     "contributors": [
         "David Miller (http://davidmiller.io/)"
