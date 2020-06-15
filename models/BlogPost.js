@@ -5,6 +5,11 @@ const newBlogShema = new Schema({
     title: String,
     body: String,
     image: String,
+    username: String,
+    datePosted: {
+        type: Date,
+        default: new Date()
+    }
     
 })
 

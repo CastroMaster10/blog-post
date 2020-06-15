@@ -14,7 +14,18 @@ const getRegisterController = require('./controllers/getRegister');
 const storeRegisterController = require('./controllers/storeRegister');
 const getLoginController = require('./controllers/getLogin');
 const storeLoginController = require('./controllers/logUser');
+const expressSession = require('express-session');
+const cookieParser = require('cookie-parser');
+const logOutController = require('./controllers/logOut');
 
+
+global.loggedIn = null  // global var for conditioning navbar lists
+
+
+// middlewares
+
+const logMiddleWare = require('./middlewares/logMiddleWare')  
+const ifLoggedinMiddleware = require('./middlewares/ifLoggedinMiddleWare');
 
 
 const db = mongoose.connection
@@ -22,7 +33,9 @@ mongoose.connect('mongodb://localhost/miBaseDeDatos', {useNewUrlParser: true, us
 db.on('error', (error) => console.log('Hubo un error en el servidor!',error)) 
 db.once('open', () => console.log('Servidor lanzado con éxito!')) // mensaje una vez que servidor haya sido lanzado
 
-
+app.listen(3003, (req,res) => {
+    console.log('Server has started')  // se inicializa servidor
+})
 
 // Files 
 app.use(fileUpload())
@@ -30,8 +43,20 @@ app.use(express.static('public'))// app.use(express.static('public'))  // todos 
 app.set('view engine', 'ejs')  //archivos ejs
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+app.use(cookieParser());
+app.use(expressSession({
+    secret: 'sessionCookie'
+}))
+app.use("*", (req,res,next) =>{
+    loggedIn = req.session.userId
+    next()
+})
 
-app.listen(3003, (req,res) => {
+
+
+
+
+app.listen(3000, (req,res) => {
     console.log('Server has started')  // se inicializa servidor
 })
 
@@ -39,12 +64,16 @@ app.listen(3003, (req,res) => {
 
 app.get('/', homeController);
 app.get('/post/:id', newPostController);
-app.get('/posts/new', getPostController);
-app.post('/posts/store', storePostController);
-app.get('/auth/register', getRegisterController);
-app.post('/user/register', storeRegisterController);
-app.get('/login', getLoginController);
-app.post('/store/login', storeLoginController);
+app.get('/posts/new', logMiddleWare ,getPostController);
+app.post('/posts/store', logMiddleWare, storePostController);
+app.get('/auth/register', ifLoggedinMiddleware, getRegisterController);
+app.post('/user/register', ifLoggedinMiddleware,storeRegisterController);
+app.get('/login', ifLoggedinMiddleware, getLoginController);
+app.post('/store/login',ifLoggedinMiddleware ,storeLoginController);
+app.get('/logout', logOutController);
+app.use((req,res) =>{
+    res.render('notFound')
+})
 
 
 

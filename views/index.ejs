@@ -36,9 +36,9 @@
               <%= blogposts[i].body %>
             </p>
           </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
+          <p class="post-meta">Posted by 
+            <a href="#"><%= blogposts[i].username %></a>
+            on <%= blogposts[i].datePosted.toDateString() %></p>
         </div>
         <hr>
         <% } %>
