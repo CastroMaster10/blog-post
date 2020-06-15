@@ -34,9 +34,6 @@ mongoose.connect('mongodb+srv://CastroMaster10:rodrigo02@cluster0-tynid.mongodb.
 db.on('error', (error) => console.log('Hubo un error en el servidor!',error)) 
 db.once('open', () => console.log('Servidor lanzado con éxito!')) // mensaje una vez que servidor haya sido lanzado
 
-app.listen(3003, (req,res) => {
-    console.log('Server has started')  // se inicializa servidor
-})
 
 // Files 
 app.use(fileUpload())
@@ -53,15 +50,17 @@ app.use("*", (req,res,next) =>{
     next()
 })
 
-let port = process.env.PORT;
-if(port === null || port === ""){
+let port = process.env.PORT
+if(port == null || port == ""){
     port = 4000;
 }
 
+app.listen(port, (req, res) => {
+  console.log("Server has started"); // se inicializa servidor
+});
 
-app.listen(port, (req,res) => {
-    console.log('Server has started')  // se inicializa servidor
-})
+
+
 
 // Controllers
 
