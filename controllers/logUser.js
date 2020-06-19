@@ -11,14 +11,18 @@ module.exports = (req, res) =>{
             req.session.userId = user._id;
             res.redirect('/')
           }
-          else{
+          else if (error){
+
+            // const validationError = Object.keys(error.errors).map(key => error.errors[key].message)
+            // req.flash('validationError', validationError);
 
 
             res.redirect('/login')  
           }
         })
       }
-      else{
+       if (error) {
+
         res.redirect('/login')
       }
     })
