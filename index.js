@@ -35,6 +35,7 @@ db.on('error', (error) => console.log('Hubo un error en el servidor!',error))
 db.once('open', () => console.log('Servidor lanzado con éxito!')) // mensaje una vez que servidor haya sido lanzado
 
 
+
 // Files 
 app.use(fileUpload())
 app.use(express.static('public'))// app.use(express.static('public'))  // todos los archivos estáticos
