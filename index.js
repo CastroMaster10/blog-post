@@ -30,7 +30,7 @@ app.use(flash())
 
 
 const db = mongoose.connection
-mongoose.connect('mongodb+srv://CastroMaster10:rodrigo02@cluster0-tynid.mongodb.net/miBaseDeDatos', {useNewUrlParser: true, useUnifiedTopology:true})  // conecta la base de datos y nuestra aplicación
+mongoose.connect('mongodb+srv://BlogPost:rodrigo02@cluster0.tynid.mongodb.net/miBaseDeDatos?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology:true})  // conecta la base de datos y nuestra aplicación
 db.on('error', (error) => console.log('Hubo un error en el servidor!',error)) 
 db.once('open', () => console.log('Servidor lanzado con éxito!')) // mensaje una vez que servidor haya sido lanzado
 
